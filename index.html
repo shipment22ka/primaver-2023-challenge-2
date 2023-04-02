@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Aequor Homepage - Draft</title>
+    <style>
+:root {
+  /* Color Scheme */
+  --text:         #eef;
+  --text-inverse: #0b0b11;
+  --background:   #112;
+  --background-transparent: #112a;
+  --accent:       #95e3de;
+  --primary:      #5a98fa;
+  --primary-inverse:#0f376f;
+  --secondary:    #99daca;
+  --tertiary:     #afaaff;
+  --bathwater:    linear-gradient(#93c0c2, #2a48aa);
+  /* Sizing */
+  --general-gap:  2rem;
+  --small-gap:      .5rem;
+}
+/*  */
+* {
+  box-sizing: border-box;
+}
+img {
+  max-width:  100%;
+  max-height: 100%;
+}
+body {
+  /* Essentially make the body be the same size as the html exactly */
+  margin:  0;
+  padding: 0;
+  /* Theme */
+  background: var(--background);
+  color:      var(--text);
+  font-family: 'DejaVu Sans', Arial, Helvetica, Sans-Serif;
+  line-height: 1.6rem;
+}
+h1 {
+  /* Theme */
+  color: var(--secondary);
+}
+h2 {
+  /* Theme */
+  color: var(--text-inverse);
+}
+h3 {
+  color: var(--secondary);
+  margin-block: 0 calc(var(general-gap) * .5);
+}
+a {
+  color: var(--primary);
+}
+p {
+  margin-block: 0 var(--general-gap);
+}
+.surface {
+  /* Theme */
+  padding: calc(var(--general-gap) * .4) var(--general-gap);
+  padding-bottom: calc(var(--general-gap) * .2);
+  border-radius: .6rem;
+  background-color: var(--background-transparent);
+}
+/* Layout */
+.main-header, .main-header a {
+  /* Theme */
+  color: var(--text-inverse);
+}
+.main-header {
+  /* Theme */
+  background-color: var(--accent);
+}
+.main-header a {
+  /* 
+     Remove default link underline, 
+     later replaced with custom animation
+   */
+  text-decoration: none;
+}
+nav[role="main-navigation"] ul {
+  /* Remove the dot for each list item */
+  list-style: none;
+  /* Fix relational margin issue and padding */
+  margin: 0;
+  padding: calc(var(--general-gap) * .5) 0 0 0;
+  line-height: 2.6rem;
+  /* Center and space items */
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--general-gap) * .2);
+}
+nav[role="main-navigation"] a {
+  position: relative;
+  padding: calc(var(--general-gap) * .5);
+}
+nav[role="main-navigation"] a[data-current-page="true"] {
+  color: var(--tertiary);
+  background: url(file:///home/ben/Downloads/primavera%202023%20homepage%20entry%20current%20page%20blob.svg) center / cover;
+}
+nav[role="main-navigation"] a:not([data-current-page="true"])::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: .4rem;
+  right: 0;
+  height: 3px;
+  transform: scale(0);
+  transform-origin: right;
+  transition: transform 250ms;
+  background-color: var(--tertiary);
+}
+nav[role="main-navigation"] a:not([data-current-page="true"]):hover::after {
+  transform: scale(1);
+  transform-origin: left;
+}
+.top-banner {
+  /* Center everything */
+  display: grid;
+  justify-content: center;
+  align-items:     center;
+  padding-block: calc(var(--general-gap) * 3.5) calc(var(--general-gap) * 5);
+  /* Make waves */
+  margin-block: -2px;
+  background: url(/home/ben/Downloads/primavera%202023%20homepage%20entry%20bubbles2.svg) center / contain,
+              url(file:///home/ben/Downloads/primavera%202023%20homepage%20entry%20waves.svg.svg) center bottom / cover,
+              url(file:///home/ben/Downloads/primaver%202023%20homepage%20entry%20header%20wave.svg) top / cover;
+}
+.top-avatar-wrapper {
+  /* Center the avatar */
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.top-avatar-image {
+  /* Round and give border */
+  border-radius: 50%;
+  border: solid .15rem var(--primary);
+}
+.main-content {
+  position: relative;
+  padding-block: var(--general-gap) calc(var(--general-gap) * 5);
+  padding-inline: calc(var(--general-gap) * 1.4);
+  background: url(/home/ben/Downloads/primavera%202023%20homepage%20entry%20bubbles.svg) center top / contain, 
+              var(--bathwater) bottom / cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+.page:not([data-current-page="true"]) {
+  display: none;
+}
+.main-content::after {
+  content: '';
+  height: 20vh;
+  width: 100%;
+  background: url(file:///home/ben/Downloads/primavera%202023%20homepage%20entry%20bottom%20waves.svg) center bottom / cover;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  z-index: -1;
+}
+.main-footer {
+  padding: var(--general-gap);
+  padding-bottom: calc(var(--general-gap) * 1.3);
+  background-color: var(--accent);
+  color:            var(--text-inverse);
+  display: grid;
+  gap: calc(var(--general-gap) * .5);
+  justify-content: center;
+  text-align: center;
+}
+.footer-links {
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+  /* Center the links and put them on the same line */
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--general-gap) * 1.5);
+}
+.footer-links a {
+  color: var(--primary-inverse);
+}
+.members-grid, .projects-grid {
+  display: grid; 
+  gap: calc(var(--general-gap) * .6);
+}
+.members-grid {
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}
+.projects-grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.member, .project {
+  --gaps: calc(var(--general-gap) * .5);
+  display: grid;
+  align-items: center;
+  gap: var(--gaps);
+  padding: var(--gaps);
+}
+.member-avatar-wrapper, .project-thumbnail-wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.member-avatar-wrapper img, .project-thumbnail-wrapper img {
+  border: 2px solid var(--primary);
+  border-radius: calc(var(--general-gap) * .25);
+}
+.member-name,.member-level,.project-title,.project-author {
+  text-align: center;
+}
+.member-name,.project-title {
+  color: var(--secondary);
+}
+.member-level, .project-author {
+  color: var(--tertiary);
+}
+.member-level {
+  text-transform: uppercase;
+}
+.scores-wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: .8rem;
+  padding-block: 1.5rem;
+}
+    </style>
+    </head>
+    <body>
+    <header class="main-header">
+      <nav role="main-navigation" aria-label="Main Navigation">
+        <ul>
+          <li>
+            <a href="javascript:changePage('about')" data-page="about" data-current-page="true">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="javascript:changePage('members')" data-page="members">
+              Members
+            </a>
+          </li>
+          <li>
+            <a href="javascript:changePage('projects')" data-page="projects">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="javascript:changePage('scores')" data-page="scores">
+              Scores
+            </a>
+          </li>
+          <li>
+            <a href="javascript:changePage('join')" data-page="join">
+              Join
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="top-banner">
+      <div class="top-avatar-wrapper">
+        <img class="top-avatar-image" src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png"/>
+      </div>
+      <h1>Aequor Homepage</h1>
+    </div>
+    <main class="main-content">
+      <div class="page" data-page="about">
+        <h2>About</h2>
+        <div class="surface">
+          <h3>Aequor</h3>
+          <p>
+          Aequor is a team in a Khan Academy contest, <a href="https://www.khanacademy.org/computer-programming/primavera-2023/5528901184176128">Primavera</a>. Each team has an avatar, i don't know much about ours, because i have a life and other things to do than study it, but it looks to be based on a the Loch Ness monster, but for bath tubs. Anyway we're gonna be the winning team because I'm such a legend and everyone else sucks, blah blah blah.
+          </p>
+          <h3>Primavera</h3>
+          <p>
+          Primavera is a coding competition on Khan Academy, with six teams each having its own avatar and coders ranging from novice to "legend" (for people who think they're better than they are, we do have a so called "legend" on our team so just don't tell him or he might be offended), consisting of a one week homepage challenge, another two week long challenges, a three week coding marathon with three mini-challenges, and a ten day grand finale. You can sign up for it <a href="https://www.khanacademy.org/computer-programming/primavera-2023/5528901184176128?qa_expand_key=ag5zfmtoYW4tYWNhZGVteXJBCxIIVXNlckRhdGEiHmthaWRfNDM5MTEwMDUzODMwNzU4MDY1MDIyMDIxMgwLEghGZWVkYmFjaxiAgNPE4Z2eCAw&qa_expand_type=comment">in this thread</a>.
+          </p>
+        </div>
+      </div>
+      <div class="page" data-page="members">
+        <h2>Members</h2>
+        <div class="members-grid">
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+          <div class="member surface">
+            <div class="member-avatar-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="member avatar">
+            </div>
+            <div>
+              <div class="member-name">Shipment22</div>
+              <div class="member-level">expert</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page" data-page="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+          <div class="surface project">
+            <div class="project-thumbnail-wrapper">
+              <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" />
+            </div>
+            <div>
+              <div class="project-title">Project Title</div>
+              <div class="project-author">Shipment22</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page" data-page="scores" data-current-page="true">
+        <h2>Scores</h2>
+        <div class="surface">
+          <div class="scores-wrapper">
+            <div class=team-score-wrapper">
+              <div class="team-score-visual-wrapper">
+                <div class="team-score-visual">
+                  <img src="https://www.khanacademy.org/computer-programming/opes/6058228657209344/6173420242124800.png" alt="Opes Avatar" />
+                </div>
+              </div>
+              <div>
+                <div class="team-score">
+                  234
+                </div>
+                <div class="team-name">
+                  Opes
+                </div>
+              </div>
+            </div>
+            <div class=team-score-wrapper">
+              <div class="team-score-visual-wrapper">
+                <div class="team-score-visual">
+                  <img src="https://www.khanacademy.org/computer-programming/altum/5541035876073472/6189481079390208.png" alt="Altum Avatar" />
+                </div>
+              </div>
+              <div>
+                <div class="team-score">
+                  453
+                </div>
+                <div class="team-name">
+                  Altum
+                </div>
+              </div>
+            </div>
+            <div class=team-score-wrapper">
+              <div class="team-score-visual-wrapper">
+                <div class="team-score-visual">
+                  <img src="https://www.khanacademy.org/computer-programming/magus/5395850370269184/6478919588167680.png" alt="Magus Avatar" />
+                </div>
+              </div>
+              <div>
+                <div class="team-score">
+                  0
+                </div>
+                <div class="team-name">
+                  Magus
+                </div>
+              </div>
+            </div>
+            <div class=team-score-wrapper">
+              <div class="team-score-visual-wrapper">
+                <div class="team-score-visual">
+                  <img src="https://www.khanacademy.org/computer-programming/aequor/4995781053693952/5311519568216064.png" alt="Aepuor Avatar" />
+                </div>
+              </div>
+              <div>
+                <div class="team-score">
+                  675
+                </div>
+                <div class="team-name">
+                  Aequor
+                </div>
+              </div>
+            </div>
+            <div class=team-score-wrapper">
+              <div class="team-score-visual-wrapper">
+                <div class="team-score-visual">
+                  <img src="https://www.khanacademy.org/computer-programming/cinis/5190984398061568/6090887789854720.png" alt="Cinis Avatar" />
+                </div>
+              </div>
+              <div>
+                <div class="team-score">
+                  434
+                </div>
+                <div class="team-name">
+                  Cinis
+                </div>
+              </div>
+            </div>
+            <div class=team-score-wrapper">
+              <div class="team-score-visual-wrapper">
+                <div class="team-score-visual">                 
+                  <img src="https://www.khanacademy.org/computer-programming/gryphon/4832278292512768/4717407915786240.png" alt="Virtus Avatar" />
+                </div>
+              </div>
+              <div>
+                <div class="team-score">
+                  999
+                </div>
+                <div class="team-name">
+                  Virtus
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page" data-page="join">
+        <h2>Join</h2>
+        <div class="surface">
+          <h3>Why?</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sodales neque sodales ut etiam sit amet nisl purus in. Massa tincidunt dui ut ornare lectus. Neque vitae tempus quam pellentesque nec nam aliquam. Arcu risus quis varius quam quisque id.
+          </p>
+          <h3>How?</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nunc faucibus a pellentesque sit amet porttitor. Mauris sit amet massa vitae tortor condimentum lacinia. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Sagittis orci a scelerisque purus semper eget duis at tellus.
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer class="main-footer">
+      <ul class="footer-links">
+        <li>
+          <a href="">
+            Primavera
+          </a>
+        </li>
+        <li>
+          <a href="https://www.khanacademy.org/computer-programming/primavera-2023/5528901184176128?qa_expand_key=ag5zfmtoYW4tYWNhZGVteXJBCxIIVXNlckRhdGEiHmthaWRfNDM5MTEwMDUzODMwNzU4MDY1MDIyMDIxMgwLEghGZWVkYmFjaxiAgNPogJ_6Cww&qa_expand_type=comment">
+            Team Chat Thread
+          </a>
+        </li>
+        <li>
+          <a href="">
+            Idolor
+          </a>
+        </li>
+        <li>
+          <a href="">
+            Sit
+          </a>
+        </li>
+      </ul>
+      <div class="footer-message">
+        Shipment22 - Primavera 2023
+      </div>
+    </footer>
+    <script type="application/javascript">
+      const changePage = page => {
+        const fromPage = document.querySelector('.page[data-current-page="true"]'),
+              toPage   = document.querySelector('.page[data-page="'+page+'"]'),
+              fromTab  = document.querySelector('[role="main-navigation"] a[data-current-page="true"]'),
+              toTab  = document.querySelector('[role="main-navigation"] a[data-page="'+page+'"]');
+        fromPage.setAttribute('data-current-page', 'false');
+        toPage.setAttribute('data-current-page',   'true');
+        fromTab.setAttribute('data-current-page', 'false');
+        toTab.setAttribute('data-current-page',   'true');
+      };
+    </script>
+    </body>
+</html>
