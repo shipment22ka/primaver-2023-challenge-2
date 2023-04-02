@@ -94,26 +94,25 @@ nav[role="main-navigation"] ul {
 nav[role="main-navigation"] a {
   position: relative;
   padding: calc(var(--general-gap) * .5);
+  z-index: 1;
 }
-nav[role="main-navigation"] a[data-current-page="true"] {
-  color: var(--tertiary);
-  background: url(file:///home/ben/Downloads/primavera%202023%20homepage%20entry%20current%20page%20blob.svg) center / cover;
-}
-nav[role="main-navigation"] a:not([data-current-page="true"])::after {
+nav[role="main-navigation"] a::before {
   content: '';
   position: absolute;
   left: 0;
-  bottom: .4rem;
+  top:  0;
   right: 0;
-  height: 3px;
+  bottom:0;
+  rotate: 10deg;
+  background: url(file:///home/ben/Downloads/primavera%202023%20homepage%20entry%20current%20page%20blob.svg) no-repeat left .2rem / contain;
   transform: scale(0);
-  transform-origin: right;
   transition: transform 250ms;
-  background-color: var(--tertiary);
+  z-index: -1;
 }
-nav[role="main-navigation"] a:not([data-current-page="true"]):hover::after {
+nav[role="main-navigation"] a:hover::before,
+nav[role="main-navigation"] a:focus::before,
+nav[role="main-navigation"] a[data-current-page="true"]::before {
   transform: scale(1);
-  transform-origin: left;
 }
 .top-banner {
   /* Center everything */
